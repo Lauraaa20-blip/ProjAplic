@@ -25,6 +25,26 @@ def gerar_matriz_similaridade(df):
     return similaridade
 
 # ---------------------------
+# 4. Execução principal
+# ---------------------------
+
+if _name_ == "_main_":
+    caminho_arquivo = "data/cursos.csv"  # Caminho do CSV
+    df_cursos = carregar_dados(caminho_arquivo)
+    matriz_similaridade = gerar_matriz_similaridade(df_cursos)
+
+    print("\n🔍 Cursos disponíveis:")
+    print(df_cursos['Curso'].sample(5, random_state=42).to_string(index=False))
+
+    curso_ref = input("\nDigite o nome de um curso para ver recomendações: ").strip()
+
+    recomendados = recomendar_cursos(curso_ref, df_cursos, matriz_similaridade)
+
+    if not recomendados.empty:
+        print("\n🎯 Cursos recomendados:")
+        print(recomendados.to_string(index=False))
+
+# ---------------------------
 # 3. Função de recomendação
 # ---------------------------
 
